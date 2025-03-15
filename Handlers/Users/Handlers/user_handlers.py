@@ -1,39 +1,37 @@
 from aiogram import F, Router
 from aiogram.filters import CommandStart
+from aiogram.fsm.context import FSMContext
 from aiogram.types import Message, CallbackQuery
 
+# Импорт функции для взаимодействий с БД
 from DataBase.crud import register_user_in_table
+
+# Импорт клавиатур
 from Keyboards.Users.user_keyboards import start_user_button
+
+# Импорт Текстов для сообщений
+from Handlers.Users.SendTextMessage.message_text import welcome_message
+
 
 router = Router()
 
 
 @router.message(CommandStart())
-async def start_cmd(message: Message):
+async def start_cmd(message: Message, state: FSMContext):
+    # Очищение состояний
+    await state.clear()
     # Функция для регистрации пользователя
-    result = await register_user_in_table(
+    await register_user_in_table(
         telegram_id=message.chat.id,
         telegram_name=message.chat.username,
     )
-    await message.answer('''
-    👋 Привет! Я — твой помощник по работе с Wildberries! 🛍️
+    await message.answer(text=welcome_message, reply_markup=start_user_button)
 
-    С моей помощью ты можешь:
-    \n✅ Найти товары по названию.
-    \n✅ Получить подробную информацию: название, ссылку, артикул, цену, рейтинг и оценки.
-    \n✅ Увидеть данные в виде текста или удобной таблицы, если товаров много.
-    
-    Чтобы начать, просто отправь мне название товара. Я сделаю всё остальное! 🚀
-    
-    Нажми /help, если нужна инструкция. 😊
-    ''', reply_markup=start_user_button)
 
 @router.callback_query(F.data.startswith('start_'))
-async def start_call_cmd(call_back: CallbackQuery):
-    data = call_back.message.text.replace('start_', '')
-    match data:
-        case 'default':
-            pass
+async def back_start_cmd(call_back: CallbackQuery, state: FSMContext):
+    # Очищение состояний
+    await state.clear()
+    await call_back.message.edit_text(text=welcome_message, reply_markup=start_user_button)
 
-        case 'table':
-            pass
+
