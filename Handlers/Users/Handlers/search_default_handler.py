@@ -10,7 +10,7 @@ from wb_aio_parser_bot.States.user_states import SearchStates
 # Импорт Клавиатур
 from wb_aio_parser_bot.Keyboards.Users.user_keyboards import back_start_keyboard, start_user_button
 
-from wb_aio_parser_bot.Keyboards.Users.default_search_keyboard import default_search_button, default_sorting_button
+from wb_aio_parser_bot.Keyboards.Users.default_search_keyboard import default_sorting_button, default_total_button
 
 # Функция для парсминга данных
 from wb_aio_parser_bot.FileFunction.ParsingFunction import parsing_function_wb
@@ -35,7 +35,7 @@ async def search_state_cmd(message: Message, state: FSMContext):
         await state.update_data(search=message.text)
         await state.set_state(SearchStates.sorting)
 
-        await message.answer('Сортировка товаров:', reply_markup=default_search_button)
+        await message.answer('Сортировка товаров:', reply_markup=default_sorting_button)
     else:
         # Работа с состояниями
         await state.set_state(SearchStates.search)
@@ -50,7 +50,7 @@ async def sorting_state_cmd(call_back: CallbackQuery, state: FSMContext):
     await state.update_data(sorting=call_data)
     await state.set_state(SearchStates.limited)
 
-    await call_back.message.edit_text('Количество Товаров 🛍️', reply_markup=default_sorting_button)
+    await call_back.message.edit_text('Количество Товаров 🛍️', reply_markup=default_total_button)
 
 
 @router.callback_query(F.data.startswith('def_sorting_'))

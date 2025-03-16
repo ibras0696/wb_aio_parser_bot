@@ -1,12 +1,8 @@
-import asyncio
-from pprint import pprint
-
-import aiohttp
-import pandas as pd
 import os
+
+import pandas as pd
 from typing import Dict, List, Any
 
-from aiohttp import request
 
 
 async def create_csv_file_async(data: Dict[str, List[Any]], filename: str) -> str:
@@ -23,7 +19,7 @@ async def create_csv_file_async(data: Dict[str, List[Any]], filename: str) -> st
 
     # Сохранение в CSV
     df.to_csv(
-        path_or_buf=filename,
+        path_or_buf=f'{filename}.csv',
         index=False,
         sep=';',  # Разделитель
         encoding='utf-8-sig',  # Кодировка
@@ -31,4 +27,7 @@ async def create_csv_file_async(data: Dict[str, List[Any]], filename: str) -> st
     )
 
     # Возвращаем абсолютный путь к созданному файлу
-    return filename
+    path = os.path.abspath(f'{filename}.csv')
+
+    return path
+

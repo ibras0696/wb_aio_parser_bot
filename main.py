@@ -33,4 +33,3 @@ if __name__ == '__main__':
         print('Ошибка')
     except KeyboardInterrupt:
         print('Выход')
-
