@@ -8,7 +8,7 @@ dct_btns = {
     '📝 По оценкам': '4',
     '💰 По цене(убывание)': '2',
     '💸 По цене(возрастание)': '1',
-    '🛍️ Без сортировки!': ''
+    '🛍️ Без сортировки!': '0'
 }
 default_search_button = asyncio.run(inline_keyboard_buttons(
     buttons_dct=dct_btns,
@@ -30,5 +30,5 @@ dct_btns = {
 default_sorting_button = asyncio.run(inline_keyboard_buttons(
     buttons_dct=dct_btns,
     starts='def_sorting_',
-    adjust=1
+    adjust=3
 ))
