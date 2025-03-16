@@ -1,3 +1,5 @@
+import os
+
 from aiogram import Router, F
 from aiogram.fsm.context import FSMContext
 from aiogram.types import CallbackQuery, Message, FSInputFile
@@ -79,7 +81,8 @@ async def result_search_cmd(call_back: CallbackQuery, state: FSMContext):
             # Отправка файла
             file_result = FSInputFile(path_csv)
             await call_back.message.answer_document(caption=table_send_result_message, document=file_result)
-
+            # Удаление Файла
+            os.remove(path_csv)
     except Exception as ex:
         await call_back.message.answer(f'Попробуйте чуть позже возникла ошибка! {ex}')
     finally:
