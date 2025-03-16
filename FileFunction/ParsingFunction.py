@@ -6,7 +6,7 @@ from typing import Dict, List, Any, Optional
 async def parsing_function_wb(
         search: str,
         page: int = 1,
-        sorting: int = 1,
+        sorting: int = None,
         limit: Optional[int] = None
 ) -> Dict[str, List[Any]]:
     """
