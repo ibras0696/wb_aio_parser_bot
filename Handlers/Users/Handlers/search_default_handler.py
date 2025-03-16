@@ -1,13 +1,13 @@
 from aiogram import Router, F
 from aiogram.types import CallbackQuery
 
-from Handlers.Users.SendTextMessage.message_text import info_search_default_message
+from wb_aio_parser_bot.Handlers.Users.SendTextMessage.message_text import info_search_default_message
 
 
 # Импорт состояний
 
 # Импорт Клавиатур
-from Keyboards.Users.user_keyboards import back_start_keyboard
+from wb_aio_parser_bot.Keyboards.Users.user_keyboards import back_start_keyboard
 
 
 router = Router()

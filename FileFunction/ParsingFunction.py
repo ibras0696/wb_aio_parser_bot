@@ -2,8 +2,6 @@ import aiohttp
 from typing import Dict, List, Any, Optional
 
 
-
-
 # Код Прошел ревью Deepseek
 async def parsing_function_wb(
         search: str,

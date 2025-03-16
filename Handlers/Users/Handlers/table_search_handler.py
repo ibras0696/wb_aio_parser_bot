@@ -4,10 +4,10 @@ from aiogram.types import CallbackQuery
 # Импорт состояний
 
 # Импорт текстов
-from Handlers.Users.SendTextMessage.message_text import info_table_message
+from wb_aio_parser_bot.Handlers.Users.SendTextMessage.message_text import info_table_message
 
 # Импорт Клавиатур
-from Keyboards.Users.user_keyboards import back_start_keyboard
+from wb_aio_parser_bot.Keyboards.Users.user_keyboards import back_start_keyboard
 
 router = Router()
 

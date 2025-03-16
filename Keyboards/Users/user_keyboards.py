@@ -1,7 +1,7 @@
 import asyncio
 
-from Keyboards.Keyboards_all import inline_keyboard_button, inline_keyboard_buttons
-
+# Импорт Основных Клавиатур
+from wb_aio_parser_bot.Keyboards.Keyboards_all import inline_keyboard_button, inline_keyboard_buttons
 
 # Стартовые кнопки
 start_user_dct = {

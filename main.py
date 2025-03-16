@@ -9,7 +9,6 @@ from DataBase.crud import create_table
 from Handlers import router
 
 
-
 async def main():
     # Бот и подключение к Токен
     bot = Bot(token=bot_token)
