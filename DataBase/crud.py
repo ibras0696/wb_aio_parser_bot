@@ -26,8 +26,8 @@ async def create_table():
         '''
         cur.execute(f'''
         CREATE TABLE IF NOT EXISTS {Users_table}(
-            user_id INTEGER AUTO_INCREMENT,
-            telegram_id INTEGER PRIMARY KEY,
+            user_id INTEGER PRIMARY KEY AUTOINCREMENT,
+            telegram_id UNIQUE,
             telegram_name TEXT,
             data_connect TEXT
         )
@@ -44,9 +44,10 @@ async def create_table():
         '''
         cur.execute(f'''
         CREATE TABLE IF NOT EXISTS {Search_table}(
-            id_order INTEGER AUTO_INCREMENT,
-            telegram_id INTEGER PRIMARY KEY,
+            id_order INTEGER PRIMARY KEY AUTOINCREMENT,
+            telegram_id INTEGER,
             search TEXT,
+            type_search TEXT,
             data_search TEXT,
             
             FOREIGN KEY (telegram_id) REFERENCES {Users_table}(telegram_id)
@@ -135,11 +136,13 @@ async def get_one_user_table(telegram_id: int) -> dict:
 
 
 # Функция для сохранения данных о запросе пользователя
-async def search_reg_table(telegram_id: int, search: str) -> None:
+async def search_reg_table(telegram_id: int, search: str, type_search: str) -> None:
     '''
-    :param telegram_id:
-    :param search:
-    :return:
+    Функция для регистрация ордера поиска
+    :param type_search: Вид поиска
+    :param telegram_id: Телеграм Айди
+    :param search: Поиск
+    :return: None
     '''
     with sqlite3.connect(BASE_NAME) as conn:
         cur = conn.cursor()
@@ -150,9 +153,9 @@ async def search_reg_table(telegram_id: int, search: str) -> None:
         data_connect = current_date.strftime("%d.%m.%Y")
 
         cur.execute(f'''
-                    INSERT INTO {Search_table}(telegram_id, search,  data_search) 
-                    VALUES (?, ?, ? )
-                    ''', (telegram_id, f'{search}', data_connect))
+                    INSERT INTO {Search_table}(telegram_id, search, type_search, data_search) 
+                    VALUES (?, ?, ?, ?)
+                    ''', (telegram_id, f'{search}', type_search, data_connect))
 
         conn.commit()
 

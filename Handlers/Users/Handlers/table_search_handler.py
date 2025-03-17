@@ -4,6 +4,7 @@ from aiogram import Router, F
 from aiogram.fsm.context import FSMContext
 from aiogram.types import CallbackQuery, Message, FSInputFile
 
+from wb_aio_parser_bot.DataBase.crud import search_reg_table
 from wb_aio_parser_bot.FileFunction.Csv_Function import create_csv_file_async
 from wb_aio_parser_bot.FileFunction.ParsingFunction import parsing_function_wb
 from wb_aio_parser_bot.Keyboards.Users.table_keyboard import table_sorting_button, table_total_button
@@ -86,6 +87,11 @@ async def result_search_cmd(call_back: CallbackQuery, state: FSMContext):
     except Exception as ex:
         await call_back.message.answer(f'Попробуйте чуть позже возникла ошибка! {ex}')
     finally:
+        await search_reg_table(
+            telegram_id=call_back.message.chat.id,
+            search=search,
+            type_search='Table'
+        )
         # Очистка прежних состояний
         await state.clear()
         await call_back.message.answer(text=welcome_message, reply_markup=start_user_button)
