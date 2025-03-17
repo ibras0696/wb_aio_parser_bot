@@ -1,4 +1,3 @@
-import asyncio
 import sqlite3
 from datetime import datetime
 
@@ -6,10 +5,11 @@ from datetime import datetime
 # Таблицы Пользователей
 Users_table = 'Users_table'
 Search_table = 'Search_table'
-Order_table = 'Order_table'
+
 
 
 BASE_NAME = './DataBase/Data_Base_WB.db'
+
 
 # Функция для создания Таблиц для Баз Данных
 async def create_table():
@@ -57,6 +57,7 @@ async def create_table():
 
         conn.commit()
 
+
 # Функции для работы с таблицей Users_table
 async def register_user_in_table(telegram_id: int, telegram_name: str | None) -> bool:
     '''
@@ -93,7 +94,7 @@ async def checking_user_in_table(telegram_id: int) -> bool:
 
 
 # Функция для получения данных с Users_table
-async def get_user_table():
+async def get_user_table() -> dict:
     '''
             Функция для получения данных например
             {1033560490: {'data_connect': '07.03.2025','telegram_name': 'kokokp95'}}
@@ -109,6 +110,7 @@ async def get_user_table():
                 'data_connect': i[2],
             } for i in items}
         return result_data
+
 
 # Функция для получения данных одного пользователя с Users_table
 async def get_one_user_table(telegram_id: int) -> dict:
@@ -127,17 +129,30 @@ async def get_one_user_table(telegram_id: int) -> dict:
         result_data = {
             i[0]: {
                 'telegram_name': i[1],
-                'free_search': i[2],
-                'data_connect': i[3],
-                'status': i[4]
+                'data_connect': i[2],
             } for i in items}
         return result_data
 
 
+# Функция для сохранения данных о запросе пользователя
+async def search_reg_table(telegram_id: int, search: str) -> None:
+    '''
+    :param telegram_id:
+    :param search:
+    :return:
+    '''
+    with sqlite3.connect(BASE_NAME) as conn:
+        cur = conn.cursor()
 
+        # Получаем текущую дату и время
+        current_date = datetime.now()
+        # Форматируем текущую дату в строку
+        data_connect = current_date.strftime("%d.%m.%Y")
 
+        cur.execute(f'''
+                    INSERT INTO {Search_table}(telegram_id, search,  data_search) 
+                    VALUES (?, ?, ? )
+                    ''', (telegram_id, f'{search}', data_connect))
 
-# asyncio.run(create_table())
-
-
+        conn.commit()
 

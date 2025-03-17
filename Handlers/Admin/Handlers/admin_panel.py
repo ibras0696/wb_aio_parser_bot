@@ -3,9 +3,9 @@ from aiogram.filters import CommandStart, Command
 from aiogram.types import Message, CallbackQuery
 
 # Импорт Клавиатур
-from Keyboards.Admin.admin_keyboard import admin_start_keyboard
+from wb_aio_parser_bot.Keyboards.Admin.admin_keyboard import admin_start_keyboard
 
-from Config.conf import ID_ADMIN
+from wb_aio_parser_bot.Config.conf import ID_ADMIN
 
 router = Router()
 
