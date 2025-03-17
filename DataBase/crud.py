@@ -22,7 +22,6 @@ async def create_table():
             user_id Айди пользователя в общем количестве
             telegram_id Айди Телеграм 
             telegram_name Имя Пользователя
-            free_search Количество бесплатных дней
             data_connect Дата Регистрации Пользователя
         '''
         cur.execute(f'''
@@ -30,7 +29,6 @@ async def create_table():
             user_id INTEGER AUTO_INCREMENT,
             telegram_id INTEGER PRIMARY KEY,
             telegram_name TEXT,
-            free_search INTEGER,
             data_connect TEXT
         )
         ''')
@@ -81,7 +79,7 @@ async def register_user_in_table(telegram_id: int, telegram_name: str | None) ->
             cur.execute(f'''
             INSERT INTO {Users_table}(telegram_id, telegram_name,  data_connect) 
             VALUES (?, ?, ? )
-            ''', (telegram_id, f'{telegram_name} ',  data_connect))
+            ''', (telegram_id, f'{telegram_name}',  data_connect))
             conn.commit()
             return False
 
@@ -98,22 +96,17 @@ async def checking_user_in_table(telegram_id: int) -> bool:
 async def get_user_table():
     '''
             Функция для получения данных например
-            {1033560490: {'data_connect': '07.03.2025',
-                  'free_search': 10,
-                  'status': 'User',
-                  'telegram_name': 'kokokp95'}}
+            {1033560490: {'data_connect': '07.03.2025','telegram_name': 'kokokp95'}}
             :return dict
             '''
     with sqlite3.connect(BASE_NAME) as conn:
         cur = conn.cursor()
-        items = cur.execute(f"SELECT telegram_id, telegram_name, free_search, data_connect, status FROM {Users_table}").fetchall()
+        items = cur.execute(f"SELECT telegram_id, telegram_name, data_connect FROM {Users_table}").fetchall()
         # Заключение данных в Словарь
         result_data = {
             i[0]: {
                 'telegram_name': i[1],
-                'free_search': i[2],
-                'data_connect': i[3],
-                'status': i[4]
+                'data_connect': i[2],
             } for i in items}
         return result_data
 
@@ -122,14 +115,12 @@ async def get_one_user_table(telegram_id: int) -> dict:
     '''
             Функция для получения данных одного пользователя например
             {1033560490: {'data_connect': '07.03.2025',
-                  'free_search': 10,
-                  'status': 'User',
                   'telegram_name': 'kokokp95'}}
             :return dict
             '''
     with sqlite3.connect(BASE_NAME) as conn:
         cur = conn.cursor()
-        items = cur.execute(f"SELECT telegram_id, telegram_name, free_search, data_connect, status "
+        items = cur.execute(f"SELECT telegram_id, telegram_name, data_connect"
                             f"FROM {Users_table} "
                             f"WHERE telegram_id == ?", (telegram_id,)).fetchall()
         # Заключение данных в Словарь

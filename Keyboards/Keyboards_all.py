@@ -8,7 +8,7 @@ from aiogram.utils.keyboard import ReplyKeyboardBuilder, InlineKeyboardBuilder
 
 
 # Inline Keyboard
-async def inline_keyboard_buttons(buttons_dct: dict, starts: str='st_', adjust: int=2, url_btn: bool= False) -> InlineKeyboardMarkup:
+def inline_keyboard_buttons(buttons_dct: dict, starts: str='st_', adjust: int=2, url_btn: bool= False) -> InlineKeyboardMarkup:
     '''
     Функция возвращает несколько кнопок
     :param buttons_dct: Словарь {кнопка: ссылка или callback}
@@ -33,7 +33,7 @@ async def inline_keyboard_buttons(buttons_dct: dict, starts: str='st_', adjust: 
 
 
 # Inline Keyboard
-async def inline_keyboard_button(buttons_dct: dict, starts: str='st_', url_btn: bool= False)-> InlineKeyboardMarkup:
+def inline_keyboard_button(buttons_dct: dict, starts: str='st_', url_btn: bool= False)-> InlineKeyboardMarkup:
     '''
     Функция возвращает только одну кнопку
     :param buttons_dct: Словарь {кнопка: ссылка или callback}

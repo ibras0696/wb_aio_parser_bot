@@ -9,11 +9,11 @@ dct_btns = {
     '💸 По цене(возрастание)': '1',
     '🛍️ Без сортировки!': '0'
 }
-table_sorting_button = asyncio.run(inline_keyboard_buttons(
+table_sorting_button = inline_keyboard_buttons(
     buttons_dct=dct_btns,
     starts='table_search_',
     adjust=1
-))
+)
 
 dct_btns = {
     '100': 1,
@@ -26,8 +26,8 @@ dct_btns = {
     '900': 9,
     '1000': 10
 }
-table_total_button = asyncio.run(inline_keyboard_buttons(
+table_total_button = inline_keyboard_buttons(
     buttons_dct=dct_btns,
     starts='table_sorting_',
     adjust=3
-))
+)
