@@ -1,5 +1,5 @@
 from aiogram import F, Router
-from aiogram.filters import CommandStart
+from aiogram.filters import CommandStart, Command
 from aiogram.fsm.context import FSMContext
 from aiogram.types import Message, CallbackQuery
 
@@ -10,8 +10,7 @@ from wb_aio_parser_bot.DataBase.crud import register_user_in_table
 from wb_aio_parser_bot.Keyboards.Users.user_keyboards import start_user_button
 
 # Импорт Текстов для сообщений
-from wb_aio_parser_bot.Handlers.Users.SendTextMessage.message_text import welcome_message
-
+from wb_aio_parser_bot.Handlers.Users.SendTextMessage.message_text import welcome_message, start_help_text
 
 router = Router()
 
@@ -35,3 +34,9 @@ async def back_start_cmd(call_back: CallbackQuery, state: FSMContext):
     await call_back.message.edit_text(text=welcome_message, reply_markup=start_user_button)
 
 
+# Обработка help
+@router.message(Command('help'))
+async def help_cmd(message: Message, state: FSMContext):
+    # Очистка прежних состояний
+    await state.clear()
+    await message.answer(text=start_help_text)
