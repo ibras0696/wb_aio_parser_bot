@@ -1,7 +1,7 @@
 import asyncio
 import logging
 
-from aiogram import  Bot, Dispatcher
+from aiogram import Bot, Dispatcher
 from aiogram.exceptions import TelegramBadRequest
 
 from Config.conf import bot_token

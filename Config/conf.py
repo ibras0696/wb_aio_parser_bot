@@ -6,6 +6,6 @@ import os
 dotenv.load_dotenv()
 
 # Получение Токена
-bot_token = os.getenv('TOKEN')
+BOT_TOKEN = os.getenv('TOKEN')
 
 ID_ADMIN = int(os.getenv('ID_ADMIN'))

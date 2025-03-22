@@ -4,19 +4,26 @@ from aiogram import Router, F
 from aiogram.fsm.context import FSMContext
 from aiogram.types import CallbackQuery, Message, FSInputFile
 
-from wb_aio_parser_bot.DataBase.crud import search_reg_table
-from wb_aio_parser_bot.FileFunction.Csv_Function import create_csv_file_async
+# Функция для работы с БД
+from wb_aio_parser_bot.DataBase import search_reg_table
+
+# Функция для работы с данными и создания csv файла
+from wb_aio_parser_bot.FileFunction import create_csv_file_async
+
+# Импорт функции Парсинга
 from wb_aio_parser_bot.FileFunction.ParsingFunction import parsing_function_wb
-from wb_aio_parser_bot.Keyboards.Users.table_keyboard import table_sorting_button, table_total_button
+
 # Импорт состояний
 from wb_aio_parser_bot.States.user_states import TableSearchStates
 
 # Импорт текстов
-from wb_aio_parser_bot.SendTextMessage.message_text import info_table_message, welcome_message, \
+from wb_aio_parser_bot.SendTextMessage import info_table_message, welcome_message, \
     table_send_result_message
 
 # Импорт Клавиатур
-from wb_aio_parser_bot.Keyboards.Users.user_keyboards import back_start_keyboard, start_user_button
+from wb_aio_parser_bot.Keyboards.Users import back_start_keyboard, start_user_button
+# Импорт Клавиатур
+from wb_aio_parser_bot.Keyboards.Users import table_sorting_button, table_total_button
 
 router = Router()
 
