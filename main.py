@@ -4,14 +4,14 @@ import logging
 from aiogram import Bot, Dispatcher
 from aiogram.exceptions import TelegramBadRequest
 
-from Config.conf import bot_token
+from Config import BOT_TOKEN
 from DataBase.models import create_table
 from Handlers import router
 
 
 async def main():
     # Бот и подключение к Токен
-    bot = Bot(token=bot_token)
+    bot = Bot(token=BOT_TOKEN)
     # Основной диспетчер для выполнения команд
     dp = Dispatcher()
     # Подключение Роутера
