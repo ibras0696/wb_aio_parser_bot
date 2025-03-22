@@ -10,7 +10,7 @@ from wb_aio_parser_bot.DataBase.crud import register_user_in_table
 from wb_aio_parser_bot.Keyboards.Users.user_keyboards import start_user_button
 
 # Импорт Текстов для сообщений
-from wb_aio_parser_bot.Handlers.Users.SendTextMessage.message_text import welcome_message, start_help_text
+from wb_aio_parser_bot.SendTextMessage.message_text import welcome_message, start_help_text
 
 router = Router()
 

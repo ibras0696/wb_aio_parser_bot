@@ -3,7 +3,7 @@ from aiogram.fsm.context import FSMContext
 from aiogram.types import CallbackQuery, Message
 
 from wb_aio_parser_bot.DataBase.crud import search_reg_table
-from wb_aio_parser_bot.Handlers.Users.SendTextMessage.message_text import info_search_default_message, welcome_message
+from wb_aio_parser_bot.SendTextMessage.message_text import info_search_default_message, welcome_message
 
 # Импорт состояний
 from wb_aio_parser_bot.States.user_states import SearchStates

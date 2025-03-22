@@ -12,7 +12,7 @@ from wb_aio_parser_bot.Keyboards.Users.table_keyboard import table_sorting_butto
 from wb_aio_parser_bot.States.user_states import TableSearchStates
 
 # Импорт текстов
-from wb_aio_parser_bot.Handlers.Users.SendTextMessage.message_text import info_table_message, welcome_message, \
+from wb_aio_parser_bot.SendTextMessage.message_text import info_table_message, welcome_message, \
     table_send_result_message
 
 # Импорт Клавиатур
