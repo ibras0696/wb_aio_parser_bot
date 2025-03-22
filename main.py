@@ -5,7 +5,7 @@ from aiogram import Bot, Dispatcher
 from aiogram.exceptions import TelegramBadRequest
 
 from Config import BOT_TOKEN
-from DataBase.models import create_table
+from DataBase import create_table
 from Handlers import router
 
 
