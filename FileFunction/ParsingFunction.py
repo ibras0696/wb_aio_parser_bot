@@ -5,7 +5,7 @@ from typing import Dict, List, Any, Optional
 # Код Прошел ревью Deepseek
 async def parsing_function_wb(
         search: str,
-        page: int = 3,
+        page: int = 2,
         sorting: int = None,
         limit: Optional[int] = None
 ) -> Dict[str, List[Any]]:

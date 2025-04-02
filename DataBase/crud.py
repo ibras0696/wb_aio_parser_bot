@@ -1,6 +1,6 @@
 import sqlite3
 from datetime import datetime
-
+from typing import Dict
 
 # Таблицы Пользователей
 Users_table = 'Users_table'
@@ -11,57 +11,7 @@ user_limits = 'user_limits '
 
 BASE_NAME = './DataBase/Data_Base_WB.db'
 
-
-# # Функция для создания Таблиц для Баз Данных
-# async def create_table():
-#     with sqlite3.connect(BASE_NAME) as conn:
-#         cur = conn.cursor()
-#
-#         # _____________________________________________________________
-#         f'''
-#         Таблица {Users_table} для пользователей
-#             user_id Айди пользователя в общем количестве
-#             telegram_id Айди Телеграм
-#             telegram_name Имя Пользователя
-#             data_connect Дата Регистрации Пользователя
-#         '''
-#         cur.execute(f'''
-#         CREATE TABLE IF NOT EXISTS {Users_table}(
-#             user_id INTEGER PRIMARY KEY AUTOINCREMENT,
-#             telegram_id UNIQUE,
-#             telegram_name TEXT,
-#             data_connect TEXT
-#         )
-#         ''')
-#
-#         # _____________________________________________________________
-#         f'''
-#         Таблица {Search_table}
-#             id_order Айди операции
-#             telegram_id Айди Телеграм
-#             search Название товара который искал пользователь
-#             data_search Дата запроса поиска товара
-#             FOREIGN KEY (telegram_id) REFERENCES {Users_table}(telegram_id) Связка Айди телеграмма
-#         '''
-#         cur.execute(f'''
-#         CREATE TABLE IF NOT EXISTS {Search_table}(
-#             id_order INTEGER PRIMARY KEY AUTOINCREMENT,
-#             telegram_id INTEGER,
-#             search TEXT,
-#             type_search TEXT,
-#             data_search TEXT,
-#
-#             FOREIGN KEY (telegram_id) REFERENCES {Users_table}(telegram_id)
-#         )
-#         ''')
-#
-#
-#
-#         conn.commit()
-
-
-# Функции для работы с таблицей Users_table
-
+# Функция для регистрации пользователей
 async def register_user_in_table(telegram_id: int, telegram_name: str | None) -> bool:
     '''
     Функция регистрирует пользователя
@@ -81,38 +31,61 @@ async def register_user_in_table(telegram_id: int, telegram_name: str | None) ->
             return True
         else:
             cur.execute(f'''
-            INSERT INTO {Users_table}(telegram_id, telegram_name,  data_connect) 
-            VALUES (?, ?, ? )
-            ''', (telegram_id, f'{telegram_name}',  data_connect))
+            INSERT INTO {Users_table}(telegram_id, telegram_name,  data_connect, search_count) 
+            VALUES (?, ?, ?, ?)
+            ''', (telegram_id, f'{telegram_name}',  data_connect, 0))
             conn.commit()
             return False
 
+# # Функция для обновление значения поиска на +1
+# async def update_search_count(telegram_id: int):
 
 # Проверка существования пользователя Users_table
 async def checking_user_in_table(telegram_id: int) -> bool:
     with sqlite3.connect(BASE_NAME) as conn:
         cur = conn.cursor()
-        items = cur.execute(f"SELECT telegram_id FROM {Users_table} WHERE telegram_id == ?", (telegram_id,)).fetchall()
+        items = cur.execute(f"SELECT telegram_id FROM {Users_table} WHERE telegram_id == ?", (telegram_id,)).fetchone()
         return True if len(items) != 0 else False
 
 
 # Функция для получения данных с Users_table
-async def get_user_table() -> dict:
+async def get_user_table(get: int = 1) -> Dict:
     '''
             Функция для получения данных например
             {1033560490: {'data_connect': '07.03.2025','telegram_name': 'kokokp95'}}
+            :param get Параметр для получения нужных данных 1 выдача данных в виде словаря, 2 выдача словарём со списками пример
+            \n 1
             :return dict
             '''
+    list_data = {
+        'tg_id': [], # Айди Телеграмма
+        'tg_name': [], # Название в Телеграмме
+        'data_con': [], # Дата регистрации
+        'search_count': [], # Количество сделанных поиска
+    }
     with sqlite3.connect(BASE_NAME) as conn:
         cur = conn.cursor()
-        items = cur.execute(f"SELECT telegram_id, telegram_name, data_connect FROM {Users_table}").fetchall()
-        # Заключение данных в Словарь
-        result_data = {
-            i[0]: {
-                'telegram_name': i[1],
-                'data_connect': i[2],
-            } for i in items}
-        return result_data
+        items = cur.execute(f"SELECT telegram_id, telegram_name, data_connect, search_count FROM {Users_table}").fetchall()
+        match get:
+            case 1:
+                # Заключение данных в Словарь
+                dict_data = {
+                    i[0]: {
+                        'telegram_name': i[1],
+                        'data_connect': i[2],
+                        'search_count': i[3]
+                    } for i in items}
+                return dict_data
+            case 2:
+                # Заключение данных в словарь со списками
+                for i in items:
+                    list_data['telegram_id'].append(i[0])
+                    list_data['telegram_name'].append(i[1])
+                    list_data['data_connect'].append(i[2])
+                    list_data['search_count'].append(i[3])
+                return list_data
+            case _:
+                return {'None': 'None'}
 
 
 # Функция для получения данных одного пользователя с Users_table
@@ -158,6 +131,10 @@ async def search_reg_table(telegram_id: int, search: str, type_search: str) -> N
                     INSERT INTO {Search_table}(telegram_id, search, type_search, data_search) 
                     VALUES (?, ?, ?, ?)
                     ''', (telegram_id, f'{search}', type_search, data_connect))
-
+        cur.execute(f'''
+                    UPDATE {Users_table}
+                    SET search_count = search_count + 1
+                    WHERE telegram_id == ?
+                    ''', (telegram_id, ))
         conn.commit()
 

@@ -27,7 +27,8 @@ async def create_table():
             user_id INTEGER PRIMARY KEY AUTOINCREMENT,
             telegram_id UNIQUE,
             telegram_name TEXT,
-            data_connect TEXT
+            data_connect TEXT,
+            search_count INTEGER
         )
         ''')
 
