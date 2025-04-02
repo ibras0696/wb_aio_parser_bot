@@ -3,7 +3,7 @@ import sqlite3
 # Таблицы Пользователей
 Users_table = 'Users_table'
 Search_table = 'Search_table'
-user_limits = 'user_limits '
+Logs_table = 'Logs_table'
 
 
 
@@ -15,13 +15,6 @@ async def create_table():
         cur = conn.cursor()
 
         # _____________________________________________________________
-        f'''
-        Таблица {Users_table} для пользователей
-            user_id Айди пользователя в общем количестве
-            telegram_id Айди Телеграм 
-            telegram_name Имя Пользователя
-            data_connect Дата Регистрации Пользователя
-        '''
         cur.execute(f'''
         CREATE TABLE IF NOT EXISTS {Users_table}(
             user_id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -33,14 +26,6 @@ async def create_table():
         ''')
 
         # _____________________________________________________________
-        f'''
-        Таблица {Search_table}
-            id_order Айди операции
-            telegram_id Айди Телеграм 
-            search Название товара который искал пользователь
-            data_search Дата запроса поиска товара
-            FOREIGN KEY (telegram_id) REFERENCES {Users_table}(telegram_id) Связка Айди телеграмма 
-        '''
         cur.execute(f'''
         CREATE TABLE IF NOT EXISTS {Search_table}(
             id_order INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -53,5 +38,16 @@ async def create_table():
         )
         ''')
 
+        # _____________________________________________________________
+        cur.execute(f'''
+        CREATE TABLE IF NOT EXISTS {Logs_table}(
+        id_log INTEGER PRIMARY KEY AUTOINCREMENT,
+        telegram_id INTEGER,
+        log_error TEXT,
+        data_log TEXT,
+        
+        FOREIGN KEY (telegram_id) REFERENCES {Users_table}(telegram_id)
+        )
+        ''')
 
         conn.commit()

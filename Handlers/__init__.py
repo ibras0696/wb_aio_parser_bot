@@ -7,6 +7,7 @@ from .Users.Handlers.search_default_handler import router as search_default_rout
 
 # Админские Роутеры
 from .Admin.Handlers.admin_panel import router as admin_router
+from .Admin.Handlers.export_handler import router as export_admin_router
 router = Router()
 
 # Пользовательские
@@ -19,4 +20,5 @@ router.include_routers(
 # Админ
 router.include_routers(
     admin_router,
+    export_admin_router
 )

@@ -5,7 +5,7 @@ from typing import Dict, List, Any
 
 
 
-async def create_csv_file_async(data: Dict[str, List[Any]], filename: str) -> str:
+def create_csv_file_async(data: Dict[str, List[Any]], filename: str) -> str:
     """
     Асинхронно создает CSV-файл на диске из словаря данных и возвращает путь к нему.
 
@@ -16,10 +16,11 @@ async def create_csv_file_async(data: Dict[str, List[Any]], filename: str) -> st
     """
     # Преобразуем словарь в DataFrame
     df = pd.DataFrame(data)
+    filename = filename if filename.endswith('.csv') else filename+'.csv'
 
     # Сохранение в CSV
     df.to_csv(
-        path_or_buf=f'{filename}.csv',
+        path_or_buf=filename,
         index=False,
         sep=';',  # Разделитель
         encoding='utf-8-sig',  # Кодировка
@@ -27,7 +28,7 @@ async def create_csv_file_async(data: Dict[str, List[Any]], filename: str) -> st
     )
 
     # Возвращаем абсолютный путь к созданному файлу
-    path = os.path.abspath(f'{filename}.csv')
+    path = os.path.abspath(filename)
 
     return path
 
