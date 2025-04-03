@@ -2,18 +2,9 @@ import logging
 import sqlite3
 from datetime import datetime
 from typing import Dict, List
-
-# Таблицы Пользователей
-Users_table = 'Users_table'
-Search_table = 'Search_table'
-Logs_table = 'Logs_table'
-# User_limits = 'User_limits '
+from wb_aio_parser_bot.DataBase.models import USERS_TABLE, SEARCH_TABLE, LOGS_TABLE, BASE_NAME
 
 
-
-
-
-BASE_NAME = './DataBase/Data_Base_WB.db'
 
 # Функция для регистрации пользователей
 async def register_user_in_table(telegram_id: int, telegram_name: str | None) -> bool:
@@ -29,13 +20,13 @@ async def register_user_in_table(telegram_id: int, telegram_name: str | None) ->
         # Форматируем текущую дату в строку
         data_connect = current_date.strftime("%d.%m.%Y")
         cur = conn.cursor()
-        items = cur.execute(f"SELECT telegram_id FROM {Users_table} WHERE telegram_id == ?", (telegram_id, )).fetchall()
+        items = cur.execute(f"SELECT telegram_id FROM {USERS_TABLE} WHERE telegram_id == ?", (telegram_id, )).fetchall()
 
         if len(items) != 0:
             return True
         else:
             cur.execute(f'''
-            INSERT INTO {Users_table}(telegram_id, telegram_name,  data_connect, search_count) 
+            INSERT INTO {USERS_TABLE}(telegram_id, telegram_name,  data_connect, search_count) 
             VALUES (?, ?, ?, ?)
             ''', (telegram_id, f'{telegram_name}',  data_connect, 0))
             conn.commit()
@@ -48,7 +39,7 @@ async def register_user_in_table(telegram_id: int, telegram_name: str | None) ->
 async def checking_user_in_table(telegram_id: int) -> bool:
     with sqlite3.connect(BASE_NAME) as conn:
         cur = conn.cursor()
-        items = cur.execute(f"SELECT telegram_id FROM {Users_table} WHERE telegram_id == ?", (telegram_id,)).fetchone()
+        items = cur.execute(f"SELECT telegram_id FROM {USERS_TABLE} WHERE telegram_id == ?", (telegram_id,)).fetchone()
         return True if len(items) != 0 else False
 
 
@@ -78,7 +69,7 @@ async def get_user_table(get: int = 1) -> Dict:
                     telegram_name, 
                     data_connect, 
                     search_count 
-                FROM {Users_table}
+                FROM {USERS_TABLE}
             """
             items = cur.execute(query).fetchall()
 
@@ -154,7 +145,7 @@ async def get_one_user_table(telegram_id: int) -> dict:
     with sqlite3.connect(BASE_NAME) as conn:
         cur = conn.cursor()
         items = cur.execute(f"SELECT telegram_id, telegram_name, data_connect"
-                            f"FROM {Users_table} "
+                            f"FROM {USERS_TABLE} "
                             f"WHERE telegram_id == ?", (telegram_id,)).fetchall()
         # Заключение данных в Словарь
         result_data = {
@@ -181,7 +172,7 @@ async def search_reg_table(telegram_id: int, search: str, type_search: str) -> N
 
             # Вставка данных поиска
             cur.execute(
-                f"""INSERT INTO {Search_table}(
+                f"""INSERT INTO {SEARCH_TABLE}(
                     telegram_id, 
                     search, 
                     type_search, 
@@ -192,7 +183,7 @@ async def search_reg_table(telegram_id: int, search: str, type_search: str) -> N
 
             # Обновление счетчика поисков
             cur.execute(
-                f"""UPDATE {Users_table}
+                f"""UPDATE {USERS_TABLE}
                 SET search_count = search_count + 1
                 WHERE telegram_id = ?""",
                 (telegram_id,)

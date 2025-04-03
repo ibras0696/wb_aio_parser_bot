@@ -1,1 +1,3 @@
-from .user_states import SearchStates, TableSearchStates
+from .user_states import *
+
+from .admin_states import *

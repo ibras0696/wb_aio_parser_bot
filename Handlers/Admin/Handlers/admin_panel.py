@@ -6,12 +6,9 @@ from aiogram.types import Message, CallbackQuery
 from wb_aio_parser_bot.Filters import is_admin_filter, call_is_admin_filter
 
 # Импорт Клавиатур
-from wb_aio_parser_bot.Keyboards.Admin import admin_start_keyboard
+from wb_aio_parser_bot.Keyboards.Admin import massing_admin_send_message, admin_start_keyboard, export_admin_db_keyboard
 
-from wb_aio_parser_bot.Config import ID_ADMIN
-from wb_aio_parser_bot.Keyboards.Admin import export_admin_db_keyboard
-from wb_aio_parser_bot.SendTextMessage import start_admin_text
-
+from wb_aio_parser_bot.SendTextMessage import start_admin_text, mass_send_text
 
 router = Router()
 
@@ -30,8 +27,8 @@ async def call_back_admin_cmd(call_back: CallbackQuery):
     match data_call:
         case 'data_db':
             await call_back.message.edit_text(text='🗃️ Управление базой данных', reply_markup=export_admin_db_keyboard)
-        # case 'send_message':
-        #     await call_back.message.edit_text(text='', reply_markup=None)
+        case 'send_message':
+            await call_back.message.edit_text(text=mass_send_text, reply_markup=massing_admin_send_message)
         # case 'control':
         #     await call_back.message.edit_text(text='', reply_markup=None)
         # case _:

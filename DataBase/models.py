@@ -1,9 +1,9 @@
 import sqlite3
 
 # Таблицы Пользователей
-Users_table = 'Users_table'
-Search_table = 'Search_table'
-Logs_table = 'Logs_table'
+USERS_TABLE = 'Users_table'
+SEARCH_TABLE = 'Search_table'
+LOGS_TABLE = 'Logs_table'
 
 
 
@@ -16,7 +16,7 @@ async def create_table():
 
         # _____________________________________________________________
         cur.execute(f'''
-        CREATE TABLE IF NOT EXISTS {Users_table}(
+        CREATE TABLE IF NOT EXISTS {USERS_TABLE}(
             user_id INTEGER PRIMARY KEY AUTOINCREMENT,
             telegram_id UNIQUE,
             telegram_name TEXT,
@@ -27,26 +27,26 @@ async def create_table():
 
         # _____________________________________________________________
         cur.execute(f'''
-        CREATE TABLE IF NOT EXISTS {Search_table}(
+        CREATE TABLE IF NOT EXISTS {SEARCH_TABLE}(
             id_order INTEGER PRIMARY KEY AUTOINCREMENT,
             telegram_id INTEGER,
             search TEXT,
             type_search TEXT,
             data_search TEXT,
 
-            FOREIGN KEY (telegram_id) REFERENCES {Users_table}(telegram_id)
+            FOREIGN KEY (telegram_id) REFERENCES {USERS_TABLE}(telegram_id)
         )
         ''')
 
         # _____________________________________________________________
         cur.execute(f'''
-        CREATE TABLE IF NOT EXISTS {Logs_table}(
+        CREATE TABLE IF NOT EXISTS {LOGS_TABLE}(
         id_log INTEGER PRIMARY KEY AUTOINCREMENT,
         telegram_id INTEGER,
         log_error TEXT,
         data_log TEXT,
         
-        FOREIGN KEY (telegram_id) REFERENCES {Users_table}(telegram_id)
+        FOREIGN KEY (telegram_id) REFERENCES {USERS_TABLE}(telegram_id)
         )
         ''')
 
