@@ -1,4 +1,4 @@
-/Config/.env
-/DataBase/Data_Base_WB.db
+/config/.env
+/database/Data_Base_WB.db
 .idea
 .venv

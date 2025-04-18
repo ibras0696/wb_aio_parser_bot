@@ -5,9 +5,9 @@ from contextlib import suppress
 from aiogram import Bot, Dispatcher
 from aiogram.exceptions import TelegramBadRequest
 
-from Config import BOT_TOKEN
-from DataBase import create_table
-from Handlers import router
+from config import BOT_TOKEN
+from database import create_table
+from handlers import router
 
 
 async def main():

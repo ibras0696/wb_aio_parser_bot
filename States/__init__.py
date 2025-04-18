@@ -1,3 +1,3 @@
-from .user_states import *
+from .user_state import *
 
-from .admin_states import *
+from .admin_state import *
