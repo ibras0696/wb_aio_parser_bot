@@ -26,7 +26,7 @@ def export_users_table_csv() -> Dict[str: FSInputFile, str: str]:
         'data_connect',
         'search_count'
     ])
-    file_name = f'./FileFunction/{Users_table}.csv'
+    file_name = f'.{Users_table}.csv'
     result = create_csv_file_async(items, filename=file_name)
     dct = {'fsi_input_file': FSInputFile(result), 'file_name': file_name}
     return dct
@@ -43,7 +43,7 @@ def export_search_table_csv() -> Dict[str: FSInputFile, str: str]:
         'type_search',
         'data_search',
     ])
-    file_name = f'./FileFunction/{Search_table}.csv'
+    file_name = f'{Search_table}.csv'
     result = create_csv_file_async(items, filename=file_name)
     dct = {'fsi_input_file': FSInputFile(result), 'file_name': file_name}
     return dct
@@ -60,7 +60,7 @@ def export_logs_table_table_csv() -> Dict[str: FSInputFile, str: str]:
         'log_error',
         'data_log',
     ])
-    file_name = f'./FileFunction/{Logs_table}.csv'
+    file_name = f'{Logs_table}.csv'
     result = create_csv_file_async(items, filename=file_name)
     dct = {'fsi_input_file': FSInputFile(result), 'file_name': file_name}
     return dct

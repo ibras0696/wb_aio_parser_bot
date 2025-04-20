@@ -83,7 +83,7 @@ async def result_search_cmd(call_back: CallbackQuery, state: FSMContext):
         if len(result.get('Бренд')) != 0:
 
             # Создания Таблицы и возврат пути к нему
-            file_name = f'./FileFunction/{call_back.message.chat.id}_file'
+            file_name = f'{call_back.message.chat.id}_file'
             path_csv = create_csv_file_async(result, file_name)
 
             # Отправка файла
