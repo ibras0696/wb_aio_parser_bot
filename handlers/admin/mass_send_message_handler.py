@@ -55,7 +55,7 @@ async def send_text_message(message: Message, bot: Bot, state: FSMContext):
         await state.clear()
     else:
         await message.answer('⚠️ Нужно отправить Текст ⚠️')
-
+#--------------------------------------------------------
 
 # Отправка Фото
 @router.message(AdminMassSendPhotoState.photo)
@@ -70,6 +70,7 @@ async def send_photo_message(message: Message, bot: Bot, state: FSMContext):
         await handle_and_send_photo(bot=bot, photo_id=data.get('photo'))
     else:
         await message.answer('⚠️ Нужно отправить Фото ⚠️')
+#--------------------------------------------------------
 
 # Отправка Фото и текста
 @router.message(AdminMassSendTextAndPhotoState.text)
@@ -94,3 +95,5 @@ async def send_text_and_photo_message_cmd_2(message: Message, state: FSMContext,
         await handle_and_send_photo(bot=bot, photo_id=data.get('photo'), text=data.get('text'))
     else:
         await message.answer('⚠️ Нужно отправить Фото ⚠️')
+#--------------------------------------------------------
+

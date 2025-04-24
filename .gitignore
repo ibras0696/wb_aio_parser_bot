@@ -1,4 +1,15 @@
+# Игнорирование файла .env
 /config/.env
+# Игнор базы данных
 /database/Data_Base_WB.db
+
 .idea
 .venv
+
+
+# Игнорирования Кэш файлов
+__pycache__/
+
+**/__pycache__/
+
+/__pycache__/
