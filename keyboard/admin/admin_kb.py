@@ -6,7 +6,6 @@ admin_start_keyboard = inline_keyboard_buttons(
     buttons_dct={
     '🗃️ Управление базой данных': 'data_db',
     '📩 Рассылка сообщений': 'send_message',
-    '🛡️ Модерация и статистика': 'control'
 },
     starts='admin_',
     adjust=2
