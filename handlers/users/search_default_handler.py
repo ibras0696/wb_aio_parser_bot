@@ -28,11 +28,9 @@ async def default_search_cmd(call_back: CallbackQuery, state: FSMContext):
     # Отправка сообщении и сменя состояний
     await call_back.message.edit_text(text=info_search_default_message, reply_markup=back_start_keyboard)
 
-
 @router.message(SearchStates.search)
 async def search_state_cmd(message: Message, state: FSMContext):
     if message.text is not None and len(message.text) != 0:
-
         await state.update_data(search=message.text)
         await state.set_state(SearchStates.sorting)
 

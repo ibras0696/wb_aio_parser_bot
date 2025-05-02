@@ -5,7 +5,8 @@ from aiogram.types import CallbackQuery, Message
 from wb_aio_parser_bot.keyboard import admin_start_keyboard
 from wb_aio_parser_bot.states.admin_state import (AdminMassSendTextAndVideoState, AdminMassSendTextState, AdminMassSendTextAndPhotoState,
                                      AdminMassSendPhotoState, AdminMassSendVideoState)
-from wb_aio_parser_bot.utils.function.admin_function import handle_and_send_text, handle_and_send_photo
+from wb_aio_parser_bot.utils.function.admin_function import handle_and_send_text, handle_and_send_photo, \
+    handle_and_send_video
 
 from wb_aio_parser_bot.utils.message_text import (photo_text_request, photo_request,
                                                   video_text_request, video_request, text_request, start_admin_text)
@@ -97,3 +98,41 @@ async def send_text_and_photo_message_cmd_2(message: Message, state: FSMContext,
         await message.answer('⚠️ Нужно отправить Фото ⚠️')
 #--------------------------------------------------------
 
+#  Отправка только видео
+@router.message(AdminMassSendVideoState.video)
+async def send_video_message(message: Message, bot: Bot, state: FSMContext):
+    if message.video:
+        video_id = message.video.file_id
+        await state.update_data(video=video_id)
+
+        data = await state.get_data()
+
+        await handle_and_send_video(bot=bot, video_id=data.get('video'))
+        await state.clear()
+    else:
+        await message.answer('⚠️ Нужно отправить Видео ⚠️')
+
+# Отправка видео с текстом
+@router.message(AdminMassSendTextAndVideoState.text)
+async def send_text_and_video_cmd_1(message: Message, state: FSMContext):
+    text = message.text.strip()
+    if text:
+        await state.update_data(text=text)
+        await message.answer(text='📹 Теперь отправьте видео')
+        await state.set_state(AdminMassSendTextAndVideoState.video)
+    else:
+        await message.answer('⚠️ Нужно отправить Текст ⚠️')
+
+@router.message(AdminMassSendTextAndVideoState.video)
+async def send_text_and_video_cmd_2(message: Message, state: FSMContext, bot: Bot):
+    if message.video:
+        video_id = message.video.file_id
+        await state.update_data(video=video_id)
+
+        data = await state.get_data()
+        await handle_and_send_video(bot=bot, video_id=data.get('video'), text=data.get('text'))
+        await state.clear()
+    else:
+        await message.answer('⚠️ Нужно отправить Видео ⚠️')
+
+#--------------------------------------------------------
