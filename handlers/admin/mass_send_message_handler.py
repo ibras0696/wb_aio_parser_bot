@@ -94,6 +94,7 @@ async def send_text_and_photo_message_cmd_2(message: Message, state: FSMContext,
         data = await state.get_data()
 
         await handle_and_send_photo(bot=bot, photo_id=data.get('photo'), text=data.get('text'))
+        await state.clear()
     else:
         await message.answer('⚠️ Нужно отправить Фото ⚠️')
 #--------------------------------------------------------

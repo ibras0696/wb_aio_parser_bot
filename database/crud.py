@@ -192,3 +192,19 @@ async def search_reg_table(telegram_id: int, search: str, type_search: str) -> N
             conn.rollback()
             logging.error(f"Database error in search_reg_table: {e}")
             raise
+
+
+def save_error_to_db(telegram_id: int | None, error_text: str):
+    with sqlite3.connect(BASE_NAME) as conn:
+        cursor = conn.cursor()
+
+        cursor.execute(f'''
+            INSERT INTO {LOGS_TABLE} (telegram_id, log_error, data_log)
+            VALUES (?, ?, ?)
+        ''', (
+            telegram_id,
+            error_text,
+            datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        ))
+
+        conn.commit()
