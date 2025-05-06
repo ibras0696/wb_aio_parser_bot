@@ -6,7 +6,10 @@ from aiogram.types import Message
 from wb_aio_parser_bot.database.crud import all_get_table_info
 
 from wb_aio_parser_bot.database.models import *
-
+from aiogram import Bot
+import traceback
+import logging
+from wb_aio_parser_bot.config import ID_ADMIN
 
 # Получение id всех пользователей из БД
 def get_user_ids() -> List:
@@ -103,3 +106,21 @@ async def handle_and_send_video(bot: Bot, video_id: Any, text: str = None) -> Di
             except Exception as ex:
                 dct[user_id] = ex
     return dct
+
+
+async def report_error(bot: Bot, error: Exception, context: str = ""):
+    '''
+
+    :param bot: Экземпляр бота
+    :param error: Причина возникновении ошибки
+    :param context: Место происхождение ошибки
+    :return:
+    '''
+    error_text = f"❌ Ошибка!\nКонтекст: {context}\n\n{traceback.format_exc()}"
+
+    logging.error(f"{context}\n{traceback.format_exc()}")
+
+    try:
+        await bot.send_message(chat_id=ID_ADMIN, text=error_text[:4096])
+    except Exception as notify_error:
+        logging.error(f"Не удалось отправить уведомление админу: {notify_error}")
