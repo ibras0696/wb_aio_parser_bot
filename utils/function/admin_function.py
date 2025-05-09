@@ -20,6 +20,7 @@ def get_user_ids() -> List:
     result = all_get_table_info(USERS_TABLE, ['telegram_id'])
     return result.get('telegram_id')
 
+
 # Массовая отправка текста
 async def handle_and_send_text(bot: Bot, text: str = None) -> Dict[str, str | bool]:
     '''
@@ -107,20 +108,3 @@ async def handle_and_send_video(bot: Bot, video_id: Any, text: str = None) -> Di
                 dct[user_id] = ex
     return dct
 
-
-async def report_error(bot: Bot, error: Exception, context: str = ""):
-    '''
-
-    :param bot: Экземпляр бота
-    :param error: Причина возникновении ошибки
-    :param context: Место происхождение ошибки
-    :return:
-    '''
-    error_text = f"❌ Ошибка!\nКонтекст: {context}\n\n{traceback.format_exc()}"
-
-    logging.error(f"{context}\n{traceback.format_exc()}")
-
-    try:
-        await bot.send_message(chat_id=ID_ADMIN, text=error_text[:4096])
-    except Exception as notify_error:
-        logging.error(f"Не удалось отправить уведомление админу: {notify_error}")
