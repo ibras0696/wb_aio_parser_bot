@@ -1,6 +1,6 @@
 from aiogram.filters import BaseFilter
 from aiogram.types import Message, CallbackQuery
-from wb_aio_parser_bot.config import ID_ADMIN
+from config import ID_ADMIN
 
 
 class AdminTypeFilter(BaseFilter):

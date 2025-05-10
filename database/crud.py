@@ -2,7 +2,7 @@ import logging
 import sqlite3
 from datetime import datetime
 from typing import Dict, List
-from wb_aio_parser_bot.database.models import USERS_TABLE, SEARCH_TABLE, LOGS_TABLE, BASE_NAME
+from database.models import USERS_TABLE, SEARCH_TABLE, LOGS_TABLE, BASE_NAME
 
 
 # Функция для регистрации пользователей

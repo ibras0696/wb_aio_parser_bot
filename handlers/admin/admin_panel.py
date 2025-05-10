@@ -3,12 +3,12 @@ from aiogram.filters import Command
 from aiogram.types import Message, CallbackQuery
 
 # Фильтр админа
-from wb_aio_parser_bot.filters import is_admin_filter, call_is_admin_filter
+from filters import is_admin_filter, call_is_admin_filter
 
 # Импорт Клавиатур
-from wb_aio_parser_bot.keyboard.admin import massing_admin_send_message, admin_start_keyboard, export_admin_db_keyboard
+from keyboard.admin import massing_admin_send_message, admin_start_keyboard, export_admin_db_keyboard
 
-from wb_aio_parser_bot.utils.message_text import start_admin_text, mass_send_text
+from utils.message_text import start_admin_text, mass_send_text
 
 router = Router()
 

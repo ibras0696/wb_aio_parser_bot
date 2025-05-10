@@ -7,8 +7,8 @@ from aiogram.exceptions import TelegramBadRequest
 
 from config import BOT_TOKEN
 from database import create_table
-from wb_aio_parser_bot.handlers import router
-from wb_aio_parser_bot.middleware import ErrorHandlerMiddleware
+from handlers import router
+from middleware import ErrorHandlerMiddleware
 
 
 async def main():

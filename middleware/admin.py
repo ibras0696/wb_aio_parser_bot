@@ -2,12 +2,12 @@ from typing import Callable, Awaitable, Any
 
 from aiogram import BaseMiddleware, Bot
 from aiogram.types import Update
-from wb_aio_parser_bot.config import ID_ADMIN
+from config import ID_ADMIN
 import traceback
 import logging
 import asyncio
 
-from wb_aio_parser_bot.database import save_error_to_db
+from database import save_error_to_db
 
 
 class ErrorHandlerMiddleware(BaseMiddleware):

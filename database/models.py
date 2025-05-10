@@ -7,7 +7,7 @@ LOGS_TABLE = 'Logs_table'
 
 
 
-BASE_NAME = './database/Data_Base_WB.db'
+BASE_NAME = 'database/Data_Base_WB.db'
 
 # Функция для создания Таблиц для Баз Данных
 async def create_table():

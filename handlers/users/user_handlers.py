@@ -4,13 +4,13 @@ from aiogram.fsm.context import FSMContext
 from aiogram.types import Message, CallbackQuery
 
 # Импорт функции для взаимодействий с БД
-from wb_aio_parser_bot.database import register_user_in_table
+from database import register_user_in_table
 
 # Импорт клавиатур
-from wb_aio_parser_bot.keyboard.users import start_user_button
+from keyboard.users import start_user_button
 
 # Импорт Текстов для сообщений
-from wb_aio_parser_bot.utils.message_text import welcome_message, start_help_text
+from utils.message_text import welcome_message, start_help_text
 
 router = Router()
 

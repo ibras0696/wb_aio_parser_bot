@@ -1,6 +1,6 @@
 import asyncio
 
-from wb_aio_parser_bot.keyboard.kb_all import inline_keyboard_buttons
+from keyboard.kb_all import inline_keyboard_buttons
 
 dct_btns = {
     '⭐ По рейтингу': '3',

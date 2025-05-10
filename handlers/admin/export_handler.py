@@ -4,11 +4,11 @@ from aiogram import Router, F
 from aiogram.filters import Command
 from aiogram.types import CallbackQuery, Message
 
-from wb_aio_parser_bot.utils import export_db, export_users_table_csv, export_search_table_csv, export_logs_table_table_csv
+from utils import export_db, export_users_table_csv, export_search_table_csv, export_logs_table_table_csv
 
-from wb_aio_parser_bot.keyboard.admin import export_admin_db_keyboard, export_admin_table_keyboard, \
+from keyboard.admin import export_admin_db_keyboard, export_admin_table_keyboard, \
     admin_start_keyboard
-from wb_aio_parser_bot.utils.message_text import start_admin_text
+from utils.message_text import start_admin_text
 
 router = Router()
 

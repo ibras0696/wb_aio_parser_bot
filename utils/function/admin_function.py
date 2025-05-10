@@ -3,13 +3,13 @@ from typing import Any, List, Dict
 from aiogram import Bot
 from aiogram.types import Message
 
-from wb_aio_parser_bot.database.crud import all_get_table_info
+from database.crud import all_get_table_info
 
-from wb_aio_parser_bot.database.models import *
+from database.models import *
 from aiogram import Bot
 import traceback
 import logging
-from wb_aio_parser_bot.config import ID_ADMIN
+from config import ID_ADMIN
 
 # Получение id всех пользователей из БД
 def get_user_ids() -> List:

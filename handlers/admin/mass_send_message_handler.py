@@ -2,13 +2,13 @@ from aiogram import Router, F, Bot
 from aiogram.fsm.context import FSMContext
 from aiogram.types import CallbackQuery, Message
 
-from wb_aio_parser_bot.keyboard import admin_start_keyboard
-from wb_aio_parser_bot.states.admin_state import (AdminMassSendTextAndVideoState, AdminMassSendTextState, AdminMassSendTextAndPhotoState,
+from keyboard import admin_start_keyboard
+from states.admin_state import (AdminMassSendTextAndVideoState, AdminMassSendTextState, AdminMassSendTextAndPhotoState,
                                      AdminMassSendPhotoState, AdminMassSendVideoState)
-from wb_aio_parser_bot.utils.function.admin_function import handle_and_send_text, handle_and_send_photo, \
+from utils.function.admin_function import handle_and_send_text, handle_and_send_photo, \
     handle_and_send_video
 
-from wb_aio_parser_bot.utils.message_text import (photo_text_request, photo_request,
+from utils.message_text import (photo_text_request, photo_request,
                                                   video_text_request, video_request, text_request, start_admin_text)
 router = Router()
 

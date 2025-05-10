@@ -2,8 +2,8 @@ from typing import Dict
 
 from aiogram.types import FSInputFile
 
-from wb_aio_parser_bot.database.crud import all_get_table_info
-from wb_aio_parser_bot.utils import create_csv_file_async
+from database.crud import all_get_table_info
+from utils import create_csv_file_async
 
 
 def export_db(db_path: str = './database/Data_Base_WB.db') -> FSInputFile:

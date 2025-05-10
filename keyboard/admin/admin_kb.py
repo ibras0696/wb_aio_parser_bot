@@ -1,4 +1,4 @@
-from wb_aio_parser_bot.keyboard import inline_keyboard_button, inline_keyboard_buttons
+from keyboard import inline_keyboard_button, inline_keyboard_buttons
 
 
 # Клавиатура стартовая для админ панели
