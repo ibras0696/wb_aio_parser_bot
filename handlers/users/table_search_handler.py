@@ -8,7 +8,7 @@ from aiogram.types import CallbackQuery, Message, FSInputFile
 from database import search_reg_table
 
 # Функция для работы с данными и создания csv файла
-from utils import create_csv_file_async
+from utils import create_csv_file
 
 # Импорт функции Парсинга
 from utils.parsing import parsing_function_wb
@@ -84,7 +84,7 @@ async def result_search_cmd(call_back: CallbackQuery, state: FSMContext):
 
             # Создания Таблицы и возврат пути к нему
             file_name = f'{call_back.message.chat.id}_file'
-            path_csv = create_csv_file_async(result, file_name)
+            path_csv = create_csv_file(result, file_name)
 
             # Отправка файла
             file_result = FSInputFile(path_csv)

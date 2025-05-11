@@ -13,11 +13,6 @@ from utils.message_text import start_admin_text
 router = Router()
 
 
-@router.message(Command('lol'))
-async def test_cmd(message: Message):
-    await message.answer('Кнопка')
-
-
 @router.callback_query(F.data.startswith('export_'))
 async def admin_export_cmd(call_back: CallbackQuery):
     call_data = call_back.data.replace('export_', '')

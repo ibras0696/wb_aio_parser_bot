@@ -3,7 +3,7 @@ from typing import Dict
 from aiogram.types import FSInputFile
 
 from database.crud import all_get_table_info
-from utils import create_csv_file_async
+from utils import create_csv_file
 
 
 def export_db(db_path: str = './database/Data_Base_WB.db') -> FSInputFile:
@@ -27,7 +27,7 @@ def export_users_table_csv() -> Dict[str: FSInputFile, str: str]:
         'search_count'
     ])
     file_name = f'.{Users_table}.csv'
-    result = create_csv_file_async(items, filename=file_name)
+    result = create_csv_file(items, filename=file_name)
     dct = {'fsi_input_file': FSInputFile(result), 'file_name': file_name}
     return dct
 
@@ -44,7 +44,7 @@ def export_search_table_csv() -> Dict[str: FSInputFile, str: str]:
         'data_search',
     ])
     file_name = f'{Search_table}.csv'
-    result = create_csv_file_async(items, filename=file_name)
+    result = create_csv_file(items, filename=file_name)
     dct = {'fsi_input_file': FSInputFile(result), 'file_name': file_name}
     return dct
 
@@ -61,7 +61,7 @@ def export_logs_table_table_csv() -> Dict[str: FSInputFile, str: str]:
         'data_log',
     ])
     file_name = f'{Logs_table}.csv'
-    result = create_csv_file_async(items, filename=file_name)
+    result = create_csv_file(items, filename=file_name)
     dct = {'fsi_input_file': FSInputFile(result), 'file_name': file_name}
     return dct
 

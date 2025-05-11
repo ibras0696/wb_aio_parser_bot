@@ -86,8 +86,8 @@ async def parsing_function_wb(
                         dct_result['Артикул'].append(artikul)
                         dct_result['Ссылка'].append(product_url)
                 else:
-                    print(f"Ошибка при запросе: {response.status}")
-                    break
+                    raise Exception(f"Ошибка при парсера на api: {response.status}")
+
     # Сортировка результатов
     if sorting == 1:
         # Сортировка по возрастанию цены (Цена после скидки)

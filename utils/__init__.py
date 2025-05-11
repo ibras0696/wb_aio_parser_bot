@@ -1,4 +1,4 @@
-from .csv_function import create_csv_file_async
+from .csv_function import create_csv_file
 
 from .parsing import parsing_function_wb
 

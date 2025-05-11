@@ -8,7 +8,7 @@ class AdminTypeFilter(BaseFilter):
         self.id_admin = id_admin
 
     async def __call__(self, message: Message):
-        return True if message.chat.id == ID_ADMIN else False
+        return True if message.chat.id == self.id_admin else False
 
 
 class AdminCallBackFilter(BaseFilter):

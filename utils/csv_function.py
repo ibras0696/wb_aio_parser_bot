@@ -5,7 +5,7 @@ from typing import Dict, List, Any
 
 
 
-def create_csv_file_async(data: Dict[str, List[Any]], filename: str) -> str:
+def create_csv_file(data: Dict[str, List[Any]], filename: str) -> str:
     """
     Асинхронно создает CSV-файл на диске из словаря данных и возвращает путь к нему.
 
@@ -30,5 +30,5 @@ def create_csv_file_async(data: Dict[str, List[Any]], filename: str) -> str:
     # Возвращаем абсолютный путь к созданному файлу
     path = os.path.abspath(filename)
 
-    return path
+    return filename
 
