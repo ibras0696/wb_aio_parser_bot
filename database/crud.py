@@ -14,22 +14,25 @@ def register_user_in_table(telegram_id: int, telegram_name: str | None) -> bool:
     :return: bool
     '''
     with sqlite3.connect(BASE_NAME) as conn:
-        # Получаем текущую дату и время
-        current_date = datetime.now()
-        # Форматируем текущую дату в строку
-        data_connect = current_date.strftime("%d.%m.%Y")
-        cur = conn.cursor()
-        items = cur.execute(f"SELECT telegram_id FROM {USERS_TABLE} WHERE telegram_id == ?", (telegram_id, )).fetchall()
+        try:
+            # Получаем текущую дату и время
+            current_date = datetime.now()
+            # Форматируем текущую дату в строку
+            data_connect = current_date.strftime("%d.%m.%Y")
+            cur = conn.cursor()
+            items = cur.execute(f"SELECT telegram_id FROM {USERS_TABLE} WHERE telegram_id == ?", (telegram_id, )).fetchall()
 
-        if len(items) != 0:
-            return True
-        else:
-            cur.execute(f'''
-            INSERT INTO {USERS_TABLE}(telegram_id, telegram_name,  data_connect, search_count) 
-            VALUES (?, ?, ?, ?)
-            ''', (telegram_id, f'{telegram_name}',  data_connect, 0))
-            conn.commit()
-            return False
+            if len(items) != 0:
+                return True
+            else:
+                cur.execute(f'''
+                INSERT INTO {USERS_TABLE}(telegram_id, telegram_name,  data_connect, search_count) 
+                VALUES (?, ?, ?, ?)
+                ''', (telegram_id, f'{telegram_name}',  data_connect, 0))
+                conn.commit()
+                return False
+        except Exception as ex:
+            raise Exception(f'Ошибка при регистрации пользователя: {ex}')
 
 
 # Функция для получения данных и базы данных
@@ -105,20 +108,29 @@ def search_reg_table(telegram_id: int, search: str, type_search: str) -> None:
         except sqlite3.Error as e:
             conn.rollback()
             logging.error(f"Database error in search_reg_table: {e}")
-            raise
+            raise Exception(e)
 
 
 def save_error_to_db(telegram_id: int | None, error_text: str):
+    '''
+    Запись Лог Ошибки в БД
+    :param telegram_id: ID пользователя в Telegram
+    :param error_text: Текст ошибки лога
+    :return: None
+    '''
     with sqlite3.connect(BASE_NAME) as conn:
-        cursor = conn.cursor()
+        try:
+            cursor = conn.cursor()
 
-        cursor.execute(f'''
-            INSERT INTO {LOGS_TABLE} (telegram_id, log_error, data_log)
-            VALUES (?, ?, ?)
-        ''', (
-            telegram_id,
-            error_text,
-            datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-        ))
+            cursor.execute(f'''
+                INSERT INTO {LOGS_TABLE} (telegram_id, log_error, data_log)
+                VALUES (?, ?, ?)
+            ''', (
+                telegram_id,
+                error_text,
+                datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            ))
 
-        conn.commit()
+            conn.commit()
+        except Exception as ex:
+            raise Exception(f'Ошибка при записи лог ошибки в БД: {ex}')
