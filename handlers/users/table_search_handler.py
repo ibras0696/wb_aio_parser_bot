@@ -94,7 +94,7 @@ async def result_search_cmd(call_back: CallbackQuery, state: FSMContext):
     except Exception as ex:
         await call_back.message.answer(f'Попробуйте чуть позже возникла ошибка! {ex}')
     finally:
-        await search_reg_table(
+        search_reg_table(
             telegram_id=call_back.message.chat.id,
             search=search,
             type_search='Table'

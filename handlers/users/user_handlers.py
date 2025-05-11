@@ -20,7 +20,7 @@ async def start_cmd(message: Message, state: FSMContext):
     # Очищение состояний
     await state.clear()
     # Функция для регистрации пользователя
-    await register_user_in_table(
+    register_user_in_table(
         telegram_id=message.chat.id,
         telegram_name=message.chat.username,
     )
