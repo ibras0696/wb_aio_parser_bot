@@ -42,7 +42,7 @@ async def help_cmd(message: Message, state: FSMContext):
     await message.answer(text=start_help_text)
 
 
-@router.message(Command('test'))
-async def test_cmd(message: Message):
-    await message.answer('Вызов ошибки')
-    raise Exception('Ошибка в test handler')
+# @router.message(Command('test'))
+# async def test_cmd(message: Message):
+#     await message.answer('Вызов ошибки')
+#     raise Exception('Ошибка в test handler')

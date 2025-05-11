@@ -41,12 +41,12 @@ async def create_table():
         # _____________________________________________________________
         cur.execute(f'''
         CREATE TABLE IF NOT EXISTS {LOGS_TABLE}(
-        id_log INTEGER PRIMARY KEY AUTOINCREMENT,
-        telegram_id INTEGER,
-        log_error TEXT,
-        data_log TEXT,
-        
-        FOREIGN KEY (telegram_id) REFERENCES {USERS_TABLE}(telegram_id)
+            id_log INTEGER PRIMARY KEY AUTOINCREMENT,
+            telegram_id INTEGER,
+            log_error TEXT,
+            data_log TEXT,
+            
+            FOREIGN KEY (telegram_id) REFERENCES {USERS_TABLE}(telegram_id)
         )
         ''')
 

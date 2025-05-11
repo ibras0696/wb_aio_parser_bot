@@ -1,3 +1,4 @@
+from datetime import datetime
 from typing import Callable, Awaitable, Any
 
 from aiogram import BaseMiddleware, Bot
@@ -35,23 +36,37 @@ class ErrorHandlerMiddleware(BaseMiddleware):
 
             # Безопасно определяем Telegram ID
             telegram_id = None
+            telegram_name = None
             if event.message:
                 telegram_id = event.message.from_user.id
+                telegram_name = event.message.from_user.username
             elif event.callback_query:
                 telegram_id = event.callback_query.from_user.id
+                telegram_name = event.callback_query.from_user.username
             elif event.inline_query:
                 telegram_id = event.inline_query.from_user.id
+                telegram_name = event.inline_query.from_user.username
+
+            # Получаем текущую дату и время
+            now = datetime.now()
+
+            # Форматируем в нужный формат
+            formatted_time = now.strftime("%H:%M %d.%m.%Y")
 
             # Отправка админу
             if bot:
                 await bot.send_message(
                     chat_id=ID_ADMIN,
-                    text=f"❌ Ошибка!\n\n<b>{type(e).__name__}:</b> {e}\n\n<pre>{tb}</pre>",
+                    text=f"❌ Ошибка!"
+                         f"\nТелеграм ID: {telegram_id}"
+                         f"\nТелеграм Ник: {telegram_name}"
+                         f"\nВремя: {formatted_time}"
+                         f"\n\n<b>{type(e).__name__}:</b> {e}\n\n<pre>{tb[-500:-1]}</pre>",
                     parse_mode="HTML"
                 )
 
             # Сохраняем ошибку в БД (через run_in_executor, чтобы не блокировать event loop)
             loop = asyncio.get_event_loop()
-            await loop.run_in_executor(None, save_error_to_db, telegram_id, tb)
+            await loop.run_in_executor(None, save_error_to_db, telegram_id, tb[-500:-1])
 
             raise

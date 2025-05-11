@@ -108,10 +108,10 @@ def search_reg_table(telegram_id: int, search: str, type_search: str) -> None:
         except sqlite3.Error as e:
             conn.rollback()
             logging.error(f"Database error in search_reg_table: {e}")
-            raise Exception(e)
+            raise Exception(f"Database error in search_reg_table: {e}")
 
 
-def save_error_to_db(telegram_id: int | None, error_text: str):
+def save_error_to_db(telegram_id: int | None, error_text: str) -> None:
     '''
     Запись Лог Ошибки в БД
     :param telegram_id: ID пользователя в Telegram
