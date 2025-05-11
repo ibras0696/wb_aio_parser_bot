@@ -31,7 +31,7 @@ def test_all_get_table_info(table_name, columns, result):
     data = all_get_table_info(table_name, columns)
 
     # Проверка полученных данных
-    assert type(data) == dict, Exception('Ошибка в тестировании получение данных')
+    assert isinstance(data, dict), Exception('Ошибка в тестировании получение данных')
 
     # Проверка количества полученных данных
     assert len(data) == len(columns), Exception('Получено не верное количество данных')
