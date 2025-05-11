@@ -2,17 +2,19 @@ from typing import Dict
 
 from aiogram.types import FSInputFile
 
+from database import BASE_NAME
 from database.crud import all_get_table_info
 from utils import create_csv_file
-
-
-def export_db(db_path: str = './database/Data_Base_WB.db') -> FSInputFile:
-    return FSInputFile(db_path)
 
 # Таблицы Пользователей
 Users_table = 'Users_table'
 Search_table = 'Search_table'
 Logs_table = 'Logs_table'
+
+
+def export_db(db_path: str = BASE_NAME) -> FSInputFile:
+    return FSInputFile(db_path)
+
 
 def export_users_table_csv() -> Dict[str: FSInputFile, str: str]:
     '''
@@ -30,6 +32,7 @@ def export_users_table_csv() -> Dict[str: FSInputFile, str: str]:
     result = create_csv_file(items, filename=file_name)
     dct = {'fsi_input_file': FSInputFile(result), 'file_name': file_name}
     return dct
+
 
 def export_search_table_csv() -> Dict[str: FSInputFile, str: str]:
     '''
