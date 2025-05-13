@@ -81,26 +81,26 @@ python main.py
 
 ## 📖 Пользование
 ▶️ Откройте бота и нажмите кнопку для начала
-1. ![img.png](utils/img/start.png)
+![img.png](utils/img/start.png)
 
 
 ## 🔍 Нажмите на нужный тип поиска, затем введите название товара
-2. ![img.png](utils/img/search.png)
+![img.png](utils/img/search.png)
 
 ## 📊 Выберите способ сортировки результатов
-3. ![img.png](utils/img/sorting.png)
+![img.png](utils/img/sorting.png)
 
 ## 🔢 Выберите количество товаров:
 — в обычном поиске: от 1 до 10
 — в табличном поиске: от 100 до 1000
-4. ![img.png](utils/img/total_kard.png)
+![img.png](utils/img/total_kard.png)
 
 ## 📦 Вот как выглядит выдача при стандартном поиске
-5. ![img.png](utils/img/default_result.png)
+![img.png](utils/img/default_result.png)
 
 ## 📋 Пример отображения результатов в табличном режиме
-5. ![img.png](utils/img/table_search_result.png)
-6. ![img.png](utils/img/table_search_result_2.png)
+![img.png](utils/img/table_search_result.png)
+![img.png](utils/img/table_search_result_2.png)
  
  
 
